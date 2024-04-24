@@ -57,4 +57,64 @@ public class MainPageTest {
         Assert.assertTrue("Не отображается лайтбокс для выбранного каталога", driver.findElement(lightBoxPadLocator).isDisplayed());
         Assert.assertEquals("Название каталога не соответствует выбранному", expectedTitlePad, actualLinkPadCatalog);
     }
+
+    private final By promoPhotoLocator = By.xpath("(//div[@class='promo-widget-wrap'])[3]");
+    private final By catalogPhotoTitleLocator = By.cssSelector(".entry-title");
+    private final By lightBoxPhotoLocator = By.cssSelector("div.inner");
+
+    @Test
+    public void photoPromoSection_ClickingOnThePhotoSection_GoingToThePhotoCatalog() {
+        driver.navigate().to("https://intershop5.skillbox.ru/");
+        driver.findElement(promoPhotoLocator).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(lightBoxPhotoLocator));
+        String actualLinkPhotoCatalog = driver.findElement(catalogPhotoTitleLocator).getText();
+        String expectedTitlePhoto = "ФОТО/ВИДЕО";
+        Assert.assertTrue("Не отображается лайтбокс для выбранного каталога", driver.findElement(lightBoxPhotoLocator).isDisplayed());
+        Assert.assertEquals("Название каталога не соответствует выбранному", expectedTitlePhoto, actualLinkPhotoCatalog);
+    }
+
+    private final By promoAppleLocator = By.xpath("//div[@class='promo-widget-wrap-full style_one']");
+    private final By catalogIpadTitleLocator = By.cssSelector("h1.product_title");
+    private final By lightBoxIpadLocator = By.cssSelector("div.inner");
+
+    @Test
+    public void iPadApplePromoSection_ClickingOnTheIpadPromoSection_GoingToTheIpadPage() {
+        driver.navigate().to("https://intershop5.skillbox.ru/");
+        driver.findElement(promoAppleLocator).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(lightBoxIpadLocator));
+        String actualLinkIpadPage = driver.findElement(catalogIpadTitleLocator).getText();
+        String expectedTitleIpad = "iPad 2020 32gb wi-fi";
+        Assert.assertTrue("Не отображается лайтбокс для выбранного каталога", driver.findElement(lightBoxPhotoLocator).isDisplayed());
+        Assert.assertEquals("Название каталога не соответствует выбранному", expectedTitleIpad, actualLinkIpadPage);
+    }
+
+    private final By saleYellowBootLocator = By.xpath("(//img[@class='span3 wow flipInY slick-slide slick-active'])[11]");
+    private final By catalogYellowBootTitleLocator = By.cssSelector("h1.product_title");
+    private final By lightBoxYellowBootLocator = By.cssSelector("div.inner");
+
+    @Test
+    public void yellowBookSaleSection_ClickingOnTheYellowBootSaleSection_GoingToTheYellowBootCatalog() {
+        driver.navigate().to("https://intershop5.skillbox.ru/");
+        driver.findElement(saleYellowBootLocator).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(lightBoxYellowBootLocator));
+        String actualLinkYellowBootPage = driver.findElement(catalogYellowBootTitleLocator).getText();
+        String expectedTitleYellowBoot = "сапог желтый";
+        Assert.assertTrue("Не отображается лайтбокс для выбранного каталога", driver.findElement(lightBoxYellowBootLocator).isDisplayed());
+        Assert.assertEquals("Название каталога не соответствует выбранному", expectedTitleYellowBoot, actualLinkYellowBootPage);
+    }
+
+    private final By viewedProductsYellowBootLocator = By.xpath("//ul[@class='product_list_widget']//li[3]//a");
+    private final By catalogViewedYellowBootTitleLocator = By.cssSelector("h1.product_title");
+    private final By lightBoxViewedYellowBootLocator = By.cssSelector("div.inner");
+
+    @Test
+    public void yellowBooViewedProducts_ClickingOnTheYellowBootViewedProducts_GoingToTheYellowBootCatalog() {
+        driver.navigate().to("https://intershop5.skillbox.ru/");
+        driver.findElement(viewedProductsYellowBootLocator).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(lightBoxViewedYellowBootLocator));
+        String actualLinkYellowBootPage = driver.findElement(catalogViewedYellowBootTitleLocator).getText();
+        String expectedTitleYellowBoot = "сапог желтый";
+        Assert.assertTrue("Не отображается лайтбокс для выбранного каталога", driver.findElement(lightBoxViewedYellowBootLocator).isDisplayed());
+        Assert.assertEquals("Название каталога не соответствует выбранному", expectedTitleYellowBoot, actualLinkYellowBootPage);
+    }
 }
