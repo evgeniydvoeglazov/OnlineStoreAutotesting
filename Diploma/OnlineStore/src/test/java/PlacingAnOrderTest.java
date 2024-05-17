@@ -19,8 +19,8 @@ public class PlacingAnOrderTest {
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", "drivers\\chromedriver.exe");
         driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(40));
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     @After
@@ -37,7 +37,7 @@ public class PlacingAnOrderTest {
     private final By phoneNumberLocator = By.cssSelector("input#billing_phone.input-text");
     private final By buttonPlaceAnOrder = By.cssSelector("button#place_order.button.alt");
     private final By commentsLocator = By.cssSelector("textarea#order_comments.input-text");
-    private final By orderHasBeenReceivedLocator = By.cssSelector("h2.post-title");
+    private final By orderHasBeenReceivedLocator = By.xpath("//p[@class='woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received']");
     private final By loginButtonLocator = By.cssSelector("a.account");
     private final By inputUserNameLocator = By.xpath("//input[@id='username']");
     private final By inputPasswordLocator = By.xpath("//input[@id='password']");
@@ -61,18 +61,25 @@ public class PlacingAnOrderTest {
         driver.findElement(addToCartButtonLocator).click();
         driver.findElement(buttonMoreDetailingLocator).click();
         driver.findElement(checkoutButtonLocator).click();
+        driver.findElement(firstNameLocator).clear();
         driver.findElement(firstNameLocator).sendKeys("Алексей");
+        driver.findElement(lastNameLocator).clear();
         driver.findElement(lastNameLocator).sendKeys("Козлов");
+        driver.findElement(addressLocator).clear();
         driver.findElement(addressLocator).sendKeys("Ленина 3");
+        driver.findElement(cityLocator).clear();
         driver.findElement(cityLocator).sendKeys("Екатеринбург");
+        driver.findElement(stateLocator).clear();
         driver.findElement(stateLocator).sendKeys("Свердловская область");
+        driver.findElement(postCodeLocator).clear();
         driver.findElement(postCodeLocator).sendKeys("620000");
+        driver.findElement(phoneNumberLocator).clear();
         driver.findElement(phoneNumberLocator).sendKeys("+79012345678");
+        driver.findElement(commentsLocator).clear();
         driver.findElement(commentsLocator).sendKeys("Позвонить за час");
         driver.findElement(buttonPlaceAnOrder).click();
         String actualTitleOrder = driver.findElement(orderHasBeenReceivedLocator).getText();
-        String expectedTitleOrder = "Заказ получен";
-        wait.until(ExpectedConditions.textToBePresentInElementLocated(lightBoxOrderLocator,expectedTitleOrder));
+        String expectedTitleOrder = "Спасибо! Ваш заказ был получен.";
         Assert.assertEquals("Статус заказа не верный", expectedTitleOrder, actualTitleOrder);
     }
 }
